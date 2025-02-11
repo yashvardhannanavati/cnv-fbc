@@ -346,7 +346,10 @@ spec:
     workspaces:
     - name: workspace
     - name: git-auth
-      optional: true
+      secret:
+        secretName: '{{ git_auth_secret }}'
+    # - name: git-auth
+    #   optional: true
     - name: netrc
       optional: true
 #     finally:
