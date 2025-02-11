@@ -236,6 +236,28 @@ spec:
       operator: in
       values:
       - "true"
+  - name: fbc-fips-check
+    params:
+    - name: image-digest
+      value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+    - name: image-url
+      value: $(tasks.build-image-index.results.IMAGE_URL)
+    runAfter:
+    - build-image-index
+    taskRef:
+      params:
+      - name: name
+        value: fbc-fips-check
+      - name: bundle
+        value: quay.io/konflux-ci/tekton-catalog/task-fbc-fips-check@sha256:21b85e269118252eb2249d787887d5eb08da0447b5ea057c4c252a809e0c735e
+      - name: kind
+        value: task
+      resolver: bundles
+    when:
+    - input: $(params.skip-checks)
+      operator: in
+      values:
+      - "false"
   - name: deprecated-base-image-check
     params:
     - name: IMAGE_URL
