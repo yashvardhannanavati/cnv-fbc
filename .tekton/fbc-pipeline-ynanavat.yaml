@@ -246,13 +246,20 @@ spec:
     - build-image-index
     taskRef:
       params:
-      - name: name
-        value: fbc-fips-check
-      - name: bundle
-        value: quay.io/konflux-ci/tekton-catalog/task-fbc-fips-check@sha256:21b85e269118252eb2249d787887d5eb08da0447b5ea057c4c252a809e0c735e
-      - name: kind
-        value: task
-      resolver: bundles
+      # - name: name
+      #   value: fbc-fips-check
+      # - name: bundle
+      #   value: quay.io/konflux-ci/tekton-catalog/task-fbc-fips-check@sha256:21b85e269118252eb2249d787887d5eb08da0447b5ea057c4c252a809e0c735e
+      # - name: kind
+      #   value: task
+      # resolver: bundles
+      - name: url
+        value: https://github.com/yashvardhannanavati/build-definitions.git
+      - name: revision
+        value: operator_foundry_group
+      - name: pathInRepo
+        value: task/fbc-fips-check/0.1/fbc-fips-check.yaml
+      resolver: git
     when:
     - input: $(params.skip-checks)
       operator: in
