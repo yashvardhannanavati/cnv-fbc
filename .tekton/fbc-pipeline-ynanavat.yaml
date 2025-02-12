@@ -256,7 +256,7 @@ spec:
       - name: url
         value: https://github.com/yashvardhannanavati/build-definitions.git
       - name: revision
-        value: operator_foundry_group
+        value: main
       - name: pathInRepo
         value: task/fbc-fips-check/0.1/fbc-fips-check.yaml
       resolver: git
