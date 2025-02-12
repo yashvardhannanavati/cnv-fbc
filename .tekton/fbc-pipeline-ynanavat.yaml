@@ -252,6 +252,7 @@ spec:
       #   value: quay.io/konflux-ci/tekton-catalog/task-fbc-fips-check@sha256:21b85e269118252eb2249d787887d5eb08da0447b5ea057c4c252a809e0c735e
       # - name: kind
       #   value: task
+      #
       # resolver: bundles
       - name: url
         value: https://github.com/yashvardhannanavati/build-definitions.git
