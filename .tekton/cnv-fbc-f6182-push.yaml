@@ -388,14 +388,14 @@ spec:
         operator: in
         values:
         - "false"
-    - name: fbc-fips-check-oci-ta
+    - name: fips-operator-bundle-check-oci-ta
       params:
       - name: image-digest
-        value: sha256:95c5ca76730f0add8e72b1e5d3bfadb214a4e7e0839939e24dc66d86ae1cc7d4
+        value: sha256:2ca2d14d490a07095b5b066a147c99645c2d6ebc6869824962c4d2185db9dd7f
       - name: image-url
-        value: quay.io/redhat-user-workloads/telco-5g-tenant/o-cloud-manager-fbc-4-22:on-pr-47f21e462b82a0cb74f01fc16660aa6e6bdccb85
+        value: quay.io/redhat-user-workloads/crt-nshift-lightspeed-tenant/ols-bundle:2455a148440cbf6bc8c79e1073ad94e2fb5ee542
       - name: SOURCE_ARTIFACT
-        value: oci:quay.io/redhat-user-workloads/telco-5g-tenant/o-cloud-manager-fbc-4-22@sha256:d1228444a1fef5c8d57eb4514839136601c941996bcb52dc284ec3eb6220e572
+        value: oci:quay.io/redhat-user-workloads/crt-nshift-lightspeed-tenant/ols-bundle@sha256:7bb609afdaea7deb1f4590105f3603b722cdcfa3e3cfc0fbe517488437a2d0c1
       runAfter:
       - clone-repository
       taskRef:
@@ -405,7 +405,7 @@ spec:
         - name: revision
           value: yashvardhannanavati-patch-1
         - name: pathInRepo
-          value: task/fbc-fips-check-oci-ta/0.1/fbc-fips-check-oci-ta.yaml
+          value: task/fips-operator-bundle-check-oci-ta/0.1/fips-operator-bundle-check-oci-ta.yaml
         resolver: git
       when:
       - input: $(params.skip-checks)
