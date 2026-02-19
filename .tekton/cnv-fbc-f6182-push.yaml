@@ -343,9 +343,11 @@ spec:
     - name: validate-fbc
       params:
       - name: IMAGE_URL
-        value: $(tasks.build-image-index.results.IMAGE_URL)
+        # value: $(tasks.build-image-index.results.IMAGE_URL)
+        value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
       - name: IMAGE_DIGEST
-        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        # value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
       runAfter:
       - build-image-index
       taskRef:
@@ -365,13 +367,16 @@ spec:
     - name: fbc-target-index-pruning-check
       params:
       - name: IMAGE_URL
-        value: $(tasks.build-image-index.results.IMAGE_URL)
+        # value: $(tasks.build-image-index.results.IMAGE_URL)
+        value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
       - name: IMAGE_DIGEST
-        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        # value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
       - name: TARGET_INDEX
         value: registry.redhat.io/redhat/redhat-operator-index
       - name: RENDERED_CATALOG_DIGEST
-        value: $(tasks.validate-fbc.results.RENDERED_CATALOG_DIGEST)
+        # value: $(tasks.validate-fbc.results.RENDERED_CATALOG_DIGEST)
+        value: sha256:19259701f62b64665e7a6f48932ca7a1b2aea4d2dee03b4b2f68eb099a67cc81
       runAfter:
       - validate-fbc
       taskRef:
@@ -406,6 +411,30 @@ spec:
           value: yashvardhannanavati-patch-1
         - name: pathInRepo
           value: task/fips-operator-bundle-check-oci-ta/0.1/fips-operator-bundle-check-oci-ta.yaml
+        resolver: git
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values:
+        - "false"
+    - name: fbc-fips-check-oci-ta
+      params:
+      - name: image-digest
+        value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
+      - name: image-url
+        value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
+      - name: SOURCE_ARTIFACT
+        value: oci:quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16@sha256:e800e54ae51ba553baa9a076106f3eb0053c723983fad2a3a46ad6eff53ad6dc
+      runAfter:
+      - clone-repository
+      taskRef:
+        params:
+        - name: url
+          value: https://github.com/konflux-ci/build-definitions.git
+        - name: revision
+          value: main
+        - name: pathInRepo
+          value: task/fbc-fips-check-oci-ta/0.1/fbc-fips-check-oci-ta.yaml
         resolver: git
       when:
       - input: $(params.skip-checks)
