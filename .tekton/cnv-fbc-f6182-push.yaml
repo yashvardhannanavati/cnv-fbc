@@ -8,7 +8,7 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "main" && ( "v4.18/***".pathChanged() || ".tekton/cnv-fbc-f6182-push.yaml".pathChanged()
+      == "main" && ( "v4.16/***".pathChanged() || ".tekton/cnv-fbc-f6182-push.yaml".pathChanged()
       )
   creationTimestamp: null
   labels:
@@ -31,7 +31,7 @@ spec:
   - name: dockerfile
     value: catalog.Dockerfile
   - name: path-context
-    value: v4.18
+    value: v4.16
   pipelineSpec:
     description: |
       This pipeline is ideal for building and verifying [file-based catalogs](https://konflux-ci.dev/docs/end-to-end/building-olm/#building-the-file-based-catalog).
@@ -375,11 +375,11 @@ spec:
     - name: fbc-target-index-pruning-check
       params:
       - name: IMAGE_URL
-        # value: $(tasks.build-image-index.results.IMAGE_URL)
-        value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
+        value: $(tasks.build-image-index.results.IMAGE_URL)
+        # value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
       - name: IMAGE_DIGEST
-        # value: $(tasks.build-image-index.results.IMAGE_DIGEST)
-        value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        # value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
       - name: TARGET_INDEX
         value: registry.redhat.io/redhat/redhat-operator-index
       - name: RENDERED_CATALOG_DIGEST
@@ -436,13 +436,16 @@ spec:
     - name: fbc-fips-check-oci-ta
       params:
       - name: image-digest
-        value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        # value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
       - name: image-url
-        value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
+        value: $(tasks.build-image-index.results.IMAGE_URL)
+        # value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
       - name: SOURCE_ARTIFACT
-        value: oci:quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16@sha256:e800e54ae51ba553baa9a076106f3eb0053c723983fad2a3a46ad6eff53ad6dc
+        value: $(tasks.prefetch-dependencies.results.SOURCE_ARTIFACT)
+        # value: oci:quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16@sha256:e800e54ae51ba553baa9a076106f3eb0053c723983fad2a3a46ad6eff53ad6dc
       runAfter:
-      - clone-repository
+      - build-image-index
       taskRef:
         params:
         - name: url
