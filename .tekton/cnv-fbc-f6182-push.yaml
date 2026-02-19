@@ -393,30 +393,30 @@ spec:
         operator: in
         values:
         - "false"
-    - name: fips-operator-bundle-check-oci-ta
-      params:
-      - name: image-digest
-        value: sha256:2ca2d14d490a07095b5b066a147c99645c2d6ebc6869824962c4d2185db9dd7f
-      - name: image-url
-        value: quay.io/redhat-user-workloads/crt-nshift-lightspeed-tenant/ols-bundle:2455a148440cbf6bc8c79e1073ad94e2fb5ee542
-      - name: SOURCE_ARTIFACT
-        value: oci:quay.io/redhat-user-workloads/crt-nshift-lightspeed-tenant/ols-bundle@sha256:7bb609afdaea7deb1f4590105f3603b722cdcfa3e3cfc0fbe517488437a2d0c1
-      runAfter:
-      - clone-repository
-      taskRef:
-        params:
-        - name: url
-          value: https://github.com/yashvardhannanavati/build-definitions.git
-        - name: revision
-          value: yashvardhannanavati-patch-1
-        - name: pathInRepo
-          value: task/fips-operator-bundle-check-oci-ta/0.1/fips-operator-bundle-check-oci-ta.yaml
-        resolver: git
-      when:
-      - input: $(params.skip-checks)
-        operator: in
-        values:
-        - "false"
+    # - name: fips-operator-bundle-check-oci-ta
+    #   params:
+    #   - name: image-digest
+    #     value: sha256:2ca2d14d490a07095b5b066a147c99645c2d6ebc6869824962c4d2185db9dd7f
+    #   - name: image-url
+    #     value: quay.io/redhat-user-workloads/crt-nshift-lightspeed-tenant/ols-bundle:2455a148440cbf6bc8c79e1073ad94e2fb5ee542
+    #   - name: SOURCE_ARTIFACT
+    #     value: oci:quay.io/redhat-user-workloads/crt-nshift-lightspeed-tenant/ols-bundle@sha256:7bb609afdaea7deb1f4590105f3603b722cdcfa3e3cfc0fbe517488437a2d0c1
+    #   runAfter:
+    #   - clone-repository
+    #   taskRef:
+    #     params:
+    #     - name: url
+    #       value: https://github.com/yashvardhannanavati/build-definitions.git
+    #     - name: revision
+    #       value: yashvardhannanavati-patch-1
+    #     - name: pathInRepo
+    #       value: task/fips-operator-bundle-check-oci-ta/0.1/fips-operator-bundle-check-oci-ta.yaml
+    #     resolver: git
+    #   when:
+    #   - input: $(params.skip-checks)
+    #     operator: in
+    #     values:
+    #     - "false"
     - name: fbc-fips-check-oci-ta
       params:
       - name: image-digest
