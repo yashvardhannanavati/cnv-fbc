@@ -343,11 +343,11 @@ spec:
     - name: validate-fbc
       params:
       - name: IMAGE_URL
-        # value: $(tasks.build-image-index.results.IMAGE_URL)
-        value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
+        value: $(tasks.build-image-index.results.IMAGE_URL)
+        # value: quay.io/redhat-user-workloads-stage/nmarsell-tenant/dokimi-fbc-v4-16:on-pr-b02abbd6f8c4f4abccd340554b43c73b605f82b9
       - name: IMAGE_DIGEST
-        # value: $(tasks.build-image-index.results.IMAGE_DIGEST)
-        value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        # value: sha256:73f0b9fc12dc0d0305c9abda72d918664e0db9561607789d29be17b176353e2d
       runAfter:
       - build-image-index
       taskRef:
