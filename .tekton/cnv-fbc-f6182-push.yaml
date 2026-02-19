@@ -383,10 +383,10 @@ spec:
       - name: TARGET_INDEX
         value: registry.redhat.io/redhat/redhat-operator-index
       - name: RENDERED_CATALOG_DIGEST
-        # value: $(tasks.validate-fbc.results.RENDERED_CATALOG_DIGEST)
-        value: sha256:19259701f62b64665e7a6f48932ca7a1b2aea4d2dee03b4b2f68eb099a67cc81
+        value: $(tasks.validate-fbc.results.RENDERED_CATALOG_DIGEST)
+        # value: sha256:19259701f62b64665e7a6f48932ca7a1b2aea4d2dee03b4b2f68eb099a67cc81
       runAfter:
-      - clone-repository
+      - validate-fbc
       taskRef:
         # params:
         # - name: name
