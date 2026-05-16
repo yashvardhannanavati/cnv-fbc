@@ -394,22 +394,22 @@ spec:
     - name: fbc-fips-check-oci-ta
       params:
       - name: image-digest
-        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+        value: "sha256:f0a17f5761f4aee4e9c14b0b1ec5b913c0763fd53c78849fd6c528f96eee8c66"
       - name: image-url
-        value: $(tasks.build-image-index.results.IMAGE_URL)
+        value: "quay.io/redhat-user-workloads/windows-machine-conf-tenant/windows-machine-config-operator-fbc/windows-machine-config-operator-fbc-release-5-0:on-pr-a67a7ea52f923d8b8409fe19b11eb31f9ded12f0"
       - name: SOURCE_ARTIFACT
-        value: $(tasks.prefetch-dependencies.results.SOURCE_ARTIFACT)
+        value: "oci:quay.io/redhat-user-workloads/windows-machine-conf-tenant/windows-machine-config-operator-fbc/windows-machine-config-operator-fbc-release-5-0@sha256:da45c928e59e349196b8a0f841d6152a002094322a7269750887f5043e664a12"
       runAfter:
       - build-image-index
       taskRef:
         params:
-        - name: name
-          value: fbc-fips-check-oci-ta
-        - name: bundle
-          value: quay.io/konflux-ci/tekton-catalog/task-fbc-fips-check-oci-ta:0.1@sha256:9b7c93bac847bdbd2b1dd260ebdde62ac9f1e44b8a357c81a9351cde7ecc7c66
-        - name: kind
-          value: task
-        resolver: bundles
+        - name: url
+          value: https://github.com/yashvardhannanavati/build-definitions
+        - name: revision
+          value: bugfix/ocp-5.0-prev-version-cross-major-boundary
+        - name: pathInRepo
+          value: task/fbc-fips-check-oci-ta/0.1/fbc-fips-check-oci-ta.yaml
+        resolver: git
       when:
       - input: $(params.skip-checks)
         operator: in
