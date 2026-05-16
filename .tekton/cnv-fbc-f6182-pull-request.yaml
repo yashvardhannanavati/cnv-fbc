@@ -394,11 +394,11 @@ spec:
     - name: fbc-fips-check-oci-ta
       params:
       - name: image-digest
-        value: "sha256:f0a17f5761f4aee4e9c14b0b1ec5b913c0763fd53c78849fd6c528f96eee8c66"
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
       - name: image-url
-        value: "quay.io/redhat-user-workloads/windows-machine-conf-tenant/windows-machine-config-operator-fbc/windows-machine-config-operator-fbc-release-5-0:on-pr-a67a7ea52f923d8b8409fe19b11eb31f9ded12f0"
+        value: $(tasks.build-image-index.results.IMAGE_URL)
       - name: SOURCE_ARTIFACT
-        value: "oci:quay.io/redhat-user-workloads/windows-machine-conf-tenant/windows-machine-config-operator-fbc/windows-machine-config-operator-fbc-release-5-0@sha256:da45c928e59e349196b8a0f841d6152a002094322a7269750887f5043e664a12"
+        value: $(tasks.prefetch-dependencies.results.SOURCE_ARTIFACT)
       runAfter:
       - build-image-index
       taskRef:
