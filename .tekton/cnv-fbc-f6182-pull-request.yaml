@@ -403,13 +403,13 @@ spec:
       - build-image-index
       taskRef:
         params:
-        - name: name
-          value: fbc-fips-check-oci-ta
-        - name: bundle
-          value: quay.io/konflux-ci/tekton-catalog/task-fbc-fips-check-oci-ta:0.1@sha256:9b7c93bac847bdbd2b1dd260ebdde62ac9f1e44b8a357c81a9351cde7ecc7c66
-        - name: kind
-          value: task
-        resolver: bundles
+        - name: url
+          value: https://github.com/yashvardhannanavati/build-definitions
+        - name: revision
+          value: bugfix/ocp-5.0-prev-version-cross-major-boundary
+        - name: pathInRepo
+          value: task/fbc-fips-check-oci-ta/0.1/fbc-fips-check-oci-ta.yaml
+        resolver: git
       when:
       - input: $(params.skip-checks)
         operator: in
@@ -427,3 +427,4 @@ spec:
     secret:
       secretName: '{{ git_auth_secret }}'
 status: {}
+
